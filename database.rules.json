@@ -1,0 +1,142 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".read": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3')",
+        ".write": "auth != null && auth.uid === $uid && (!data.exists() ? newData.child('role').val() === 'patient' : newData.child('role').val() === data.child('role').val())",
+        ".validate": "newData.hasChildren(['name', 'email', 'role'])",
+        "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80" },
+        "email": { ".validate": "newData.isString() && newData.val().length <= 254" },
+        "phone": { ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 20)" },
+        "role": { ".validate": "newData.val() === 'patient'" },
+        "createdAt": { ".write": "auth != null && auth.uid === $uid && !data.exists()" },
+        "$other": { ".validate": false }
+      }
+    },
+    "poli": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$poliId": {
+        ".validate": "newData.hasChildren(['name', 'code', 'active'])",
+        "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 50" },
+        "code": { ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9]{1,5}$/)" },
+        "active": { ".validate": "newData.isBoolean()" },
+        "doctorName": { ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 80)" },
+        "doctorId": { ".validate": "!newData.exists() || (newData.isString() && root.child('dokter').child(newData.val()).exists())" },
+        "averageServiceMinutes": { ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 1 && newData.val() <= 120)" },
+        "autoCallEnabled": { ".validate": "!newData.exists() || newData.isBoolean()" },
+        "autoCallIntervalMinutes": { ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 1 && newData.val() <= 120)" },
+        "createdAt": { ".validate": "!newData.exists() || newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
+    },
+    "dokter": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$doctorId": {
+        ".validate": "newData.hasChildren(['name', 'specialty', 'active'])",
+        "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80" },
+        "specialty": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80" },
+        "active": { ".validate": "newData.isBoolean()" },
+        "createdAt": { ".validate": "!newData.exists() || newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
+    },
+    "jadwal_dokter": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$scheduleId": {
+        ".validate": "newData.hasChildren(['doctorId', 'poliId', 'dayOfWeek', 'startTime', 'endTime', 'active']) && root.child('dokter').child(newData.child('doctorId').val()).exists() && root.child('poli').child(newData.child('poliId').val()).child('doctorId').val() === newData.child('doctorId').val()",
+        "doctorId": { ".validate": "newData.isString() && root.child('dokter').child(newData.val()).exists()" },
+        "poliId": { ".validate": "newData.isString() && root.child('poli').child(newData.val()).exists()" },
+        "dayOfWeek": { ".validate": "newData.val() === 0 || newData.val() === 1 || newData.val() === 2 || newData.val() === 3 || newData.val() === 4 || newData.val() === 5 || newData.val() === 6" },
+        "startTime": { ".validate": "newData.isString() && newData.val().matches(/^([01][0-9]|2[0-3]):[0-5][0-9]$/)" },
+        "endTime": { ".validate": "newData.isString() && newData.val().matches(/^([01][0-9]|2[0-3]):[0-5][0-9]$/) && newData.parent().child('startTime').val() < newData.val()" },
+        "active": { ".validate": "newData.isBoolean()" },
+        "createdAt": { ".validate": "!newData.exists() || newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
+    },
+    "pengaturan": {
+      ".read": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "nomor": {
+        "$date": {
+          "$poliId": {
+            ".read": "auth != null",
+            ".write": "auth != null && ((!data.exists() && newData.val() === 1) || (data.isNumber() && newData.isNumber() && newData.val() === data.val() + 1))",
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 999999"
+          }
+        }
+      }
+    },
+    "antrean": {
+      ".read": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$date": {
+        "$poliId": {
+          ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+          "$queueId": {
+            ".read": "auth != null && (auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3' || auth.uid === data.child('uid').val())",
+            ".write": "auth != null && (auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3' || (!data.exists() && auth.uid === newData.child('uid').val() && newData.child('status').val() === 'WAITING' && newData.child('date').val() === $date && newData.child('poliId').val() === $poliId && root.child('users').child(auth.uid).child('role').val() === 'patient' && newData.child('patientName').val() === root.child('users').child(auth.uid).child('name').val() && newData.child('phone').val() === root.child('users').child(auth.uid).child('phone').val() && root.child('poli').child($poliId).child('active').val() === true && newData.child('poliName').val() === root.child('poli').child($poliId).child('name').val() && ((root.child('poli').child($poliId).child('doctorId').exists() && root.child('dokter').child(root.child('poli').child($poliId).child('doctorId').val()).child('active').val() === true && newData.child('doctorName').val() === root.child('dokter').child(root.child('poli').child($poliId).child('doctorId').val()).child('name').val()) || (!root.child('poli').child($poliId).child('doctorId').exists() && ((!root.child('poli').child($poliId).child('doctorName').exists() && newData.child('doctorName').val() === '') || (root.child('poli').child($poliId).child('doctorName').exists() && newData.child('doctorName').val() === root.child('poli').child($poliId).child('doctorName').val())))) && ((!root.child('poli').child($poliId).child('averageServiceMinutes').exists() && newData.child('averageServiceMinutes').val() === 15) || (root.child('poli').child($poliId).child('averageServiceMinutes').exists() && newData.child('averageServiceMinutes').val() === root.child('poli').child($poliId).child('averageServiceMinutes').val())) && newData.child('sequence').val() <= root.child('pengaturan').child('nomor').child($date).child($poliId).val()) || (data.exists() && auth.uid === data.child('uid').val() && data.child('status').val() === 'WAITING' && newData.child('status').val() === 'CANCELLED'))",
+            ".validate": "newData.hasChildren(['uid', 'number', 'poliId', 'poliName', 'patientName', 'phone', 'date', 'status', 'createdAt', 'sequence'])",
+            "uid": { ".validate": "newData.isString() && (newData.val() === data.val() || (!data.exists() && newData.val() === auth.uid))" },
+            "number": { ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9]{1,5}-[0-9]{3,6}$/) && (!data.exists() || newData.val() === data.val())" },
+            "sequence": { ".validate": "newData.isNumber() && newData.val() >= 1 && (!data.exists() || newData.val() === data.val())" },
+            "poliId": { ".validate": "newData.val() === $poliId && (!data.exists() || newData.val() === data.val())" },
+            "poliName": { ".validate": "newData.isString() && newData.val().length <= 50 && (newData.val() === data.val() || (!data.exists() && newData.val() === root.child('poli').child($poliId).child('name').val()))" },
+            "doctorName": { ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 80 && (!data.exists() || newData.val() === data.val()))" },
+            "averageServiceMinutes": { ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 1 && newData.val() <= 120 && (!data.exists() || newData.val() === data.val()))" },
+            "patientName": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80 && (newData.val() === data.val() || (!data.exists() && newData.val() === root.child('users').child(auth.uid).child('name').val()))" },
+            "phone": { ".validate": "newData.isString() && newData.val().length <= 20 && (newData.val() === data.val() || (!data.exists() && newData.val() === root.child('users').child(auth.uid).child('phone').val()))" },
+            "date": { ".validate": "newData.val() === $date && (!data.exists() || newData.val() === data.val())" },
+            "createdAt": { ".validate": "newData.isNumber() && (!data.exists() || newData.val() === data.val())" },
+            "updatedAt": { ".validate": "!newData.exists() || newData.isNumber()" },
+            "status": { ".validate": "newData.val() === data.val() || newData.val() === 'WAITING' || newData.val() === 'CALLED' || newData.val() === 'DONE' || newData.val() === 'SKIPPED' || newData.val() === 'CANCELLED'" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    },
+    "riwayat_antrean": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3')",
+        "$queueId": {
+          ".write": "auth != null && (auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3' || (auth.uid === $uid && ((!data.exists() && newData.child('uid').val() === auth.uid && newData.child('status').val() === 'WAITING') || (data.exists() && data.child('uid').val() === auth.uid && data.child('status').val() === 'WAITING' && newData.child('status').val() === 'CANCELLED'))))",
+          ".validate": "newData.hasChildren(['uid', 'number', 'poliId', 'poliName', 'patientName', 'phone', 'date', 'status', 'createdAt', 'sequence'])",
+          "uid": { ".validate": "newData.val() === $uid && (!data.exists() || newData.val() === data.val())" },
+          "number": { ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9]{1,5}-[0-9]{3,6}$/) && (!data.exists() || newData.val() === data.val())" },
+          "sequence": { ".validate": "newData.isNumber() && newData.val() > 0 && (!data.exists() || newData.val() === data.val())" },
+          "poliId": { ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())" },
+          "poliName": { ".validate": "newData.isString() && newData.val().length <= 50 && (!data.exists() || newData.val() === data.val())" },
+          "doctorName": { ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 80 && (!data.exists() || newData.val() === data.val()))" },
+          "averageServiceMinutes": { ".validate": "!newData.exists() || (newData.isNumber() && newData.val() >= 1 && newData.val() <= 120 && (!data.exists() || newData.val() === data.val()))" },
+          "patientName": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80 && (!data.exists() || newData.val() === data.val())" },
+          "phone": { ".validate": "newData.isString() && newData.val().length <= 20 && (!data.exists() || newData.val() === data.val())" },
+          "date": { ".validate": "newData.isString() && newData.val().matches(/^\\d{4}-\\d{2}-\\d{2}$/) && (!data.exists() || newData.val() === data.val())" },
+          "createdAt": { ".validate": "newData.isNumber() && (!data.exists() || newData.val() === data.val())" },
+          "updatedAt": { ".validate": "!newData.exists() || newData.isNumber()" },
+          "status": { ".validate": "newData.val() === data.val() || newData.val() === 'WAITING' || newData.val() === 'CALLED' || newData.val() === 'DONE' || newData.val() === 'SKIPPED' || newData.val() === 'CANCELLED'" },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+    "ringkasan_antrean": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3'",
+      "$date": {
+        "$poliId": {
+          "$queueId": {
+            ".write": "auth != null && (auth.uid === 'CQg0DMJZ3CVLbKUOkzoWRdXU5JJ3' || (!data.exists() && newData.child('status').val() === 'WAITING' && newData.child('sequence').val() <= root.child('pengaturan').child('nomor').child($date).child($poliId).val()) || (data.exists() && root.child('antrean').child($date).child($poliId).child($queueId).child('uid').val() === auth.uid && data.child('status').val() === 'WAITING' && newData.child('status').val() === 'CANCELLED'))",
+            ".validate": "newData.hasChildren(['sequence', 'status'])",
+            "sequence": { ".validate": "newData.isNumber() && newData.val() > 0 && (!data.exists() || newData.val() === data.val())" },
+            "status": { ".validate": "newData.val() === data.val() || newData.val() === 'WAITING' || newData.val() === 'CALLED' || newData.val() === 'DONE' || newData.val() === 'SKIPPED' || newData.val() === 'CANCELLED'" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    }
+  }
+}

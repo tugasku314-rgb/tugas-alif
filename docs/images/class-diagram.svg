@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1360" viewBox="0 0 1700 1360" role="img" aria-labelledby="title desc">
+  <title id="title">Class diagram sistem antrean SehatQ</title>
+  <desc id="desc">UML class diagram untuk model, halaman, services, serta integrasi Firebase paket gratis.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#405c67" stroke-width="1.5"/></marker>
+    <marker id="triangle" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0,0 L14,7 L0,14 Z" fill="#fff" stroke="#405c67" stroke-width="1.5"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#243c46}.heading{font-size:17px;font-weight:700}.member{font-size:12px}.small{font-size:11px;fill:#607780}.box{fill:#fff;stroke:#54717c;stroke-width:2}.head{fill:#eaf3f5;stroke:#54717c;stroke-width:2}.line{fill:none;stroke:#405c67;stroke-width:1.7;marker-end:url(#arrow)}.inherit{fill:none;stroke:#405c67;stroke-width:1.7;marker-end:url(#triangle)}.relation{font-size:11px;fill:#54717c}
+    </style>
+  </defs>
+  <rect width="1700" height="1100" fill="#f6f9fa"/>
+  <text x="40" y="45" class="heading" font-size="25">CLASS DIAGRAM — OOP</text>
+  <text x="40" y="70" class="small">Panah segitiga = inheritance · panah biasa = menggunakan / berasosiasi</text>
+
+  <g>
+    <rect x="690" y="100" width="320" height="142" rx="7" class="box"/>
+    <rect x="690" y="100" width="320" height="38" rx="7" class="head"/>
+    <text x="824" y="125" class="heading">User</text>
+    <text x="712" y="161" class="member">- #uid: string</text><text x="712" y="182" class="member">- #name: string</text><text x="712" y="203" class="member">- #email: string</text>
+    <text x="712" y="228" class="member">+ getters: uid, name, email</text>
+
+    <rect x="470" y="300" width="300" height="130" rx="7" class="box"/>
+    <rect x="470" y="300" width="300" height="38" rx="7" class="head"/>
+    <text x="590" y="325" class="heading">Patient</text>
+    <text x="492" y="363" class="member">- #phone: string</text><text x="492" y="386" class="member">+ phone</text><text x="492" y="410" class="small">extends User</text>
+
+    <rect x="900" y="300" width="300" height="130" rx="7" class="box"/>
+    <rect x="900" y="300" width="300" height="38" rx="7" class="head"/>
+    <text x="1027" y="325" class="heading">Admin</text>
+    <text x="922" y="363" class="member">+ canManageQueues()</text><text x="922" y="386" class="small">extends User</text><text x="922" y="410" class="small">UID admin tetap untuk demo</text>
+
+    <rect x="60" y="510" width="330" height="190" rx="7" class="box"/>
+    <rect x="60" y="510" width="330" height="38" rx="7" class="head"/>
+    <text x="162" y="535" class="heading">PatientApp</text>
+    <text x="82" y="574" class="member">- #auth, #queues, #profile</text><text x="82" y="600" class="member">+ bindForms()</text><text x="82" y="623" class="member">+ renderHistory()</text><text x="82" y="646" class="member">+ renderTickets()</text><text x="82" y="674" class="small">Controller halaman pasien</text>
+
+    <rect x="60" y="780" width="330" height="185" rx="7" class="box"/>
+    <rect x="60" y="780" width="330" height="38" rx="7" class="head"/>
+    <text x="160" y="805" class="heading">AdminApp</text>
+    <text x="82" y="844" class="member">- #auth, #queues, #adminData</text><text x="82" y="870" class="member">+ renderQueues()</text><text x="82" y="893" class="member">+ changeStatus()</text><text x="82" y="916" class="member">+ managePoli / doctors</text><text x="82" y="941" class="small">Controller dashboard petugas</text>
+
+    <rect x="480" y="510" width="360" height="215" rx="7" class="box"/>
+    <rect x="480" y="510" width="360" height="38" rx="7" class="head"/>
+    <text x="600" y="535" class="heading">Antrean</text>
+    <text x="502" y="574" class="member">- #id, #uid, #date, #poliId</text><text x="502" y="598" class="member">- #number, #sequence, #status</text><text x="502" y="622" class="member">+ canTransitionTo(status)</text><text x="502" y="646" class="member">+ transitionTo(status)</text><text x="502" y="680" class="small">WAITING → CALLED / SKIPPED / CANCELLED</text><text x="502" y="701" class="small">CALLED → DONE / SKIPPED</text>
+
+    <rect x="480" y="790" width="360" height="150" rx="7" class="box"/>
+    <rect x="480" y="790" width="360" height="38" rx="7" class="head"/>
+    <text x="620" y="815" class="heading">Poli</text>
+    <text x="502" y="854" class="member">- #id, #name, #code, #active, #doctorId</text><text x="502" y="879" class="member">+ getters: id, name, code, active</text><text x="502" y="914" class="small">Model poli layanan</text>
+
+    <rect x="920" y="510" width="330" height="190" rx="7" class="box"/>
+    <rect x="920" y="510" width="330" height="38" rx="7" class="head"/>
+    <text x="1022" y="535" class="heading">AuthService</text>
+    <text x="942" y="574" class="member">+ register(data)</text><text x="942" y="598" class="member">+ signIn(email, password)</text><text x="942" y="622" class="member">+ signOut()</text><text x="942" y="646" class="member">+ isAdmin(user)</text><text x="942" y="678" class="small">Menggunakan Firebase Auth</text>
+
+    <rect x="920" y="750" width="330" height="215" rx="7" class="box"/>
+    <rect x="920" y="750" width="330" height="38" rx="7" class="head"/>
+    <text x="1012" y="775" class="heading">QueueService</text>
+    <text x="942" y="814" class="member">+ register(poliId)</text><text x="942" y="838" class="member">+ callNext(date, poliId)</text><text x="942" y="862" class="member">+ subscribePatient(uid)</text><text x="942" y="886" class="member">+ subscribeDate(date)</text><text x="942" y="910" class="member">+ changeStatus(queue, status)</text><text x="942" y="944" class="small">Listener + transaksi klien</text>
+
+    <rect x="1320" y="510" width="320" height="160" rx="7" class="box"/>
+    <rect x="1320" y="510" width="320" height="38" rx="7" class="head"/>
+    <text x="1400" y="535" class="heading">FirebaseService</text>
+    <text x="1342" y="574" class="member">+ get / set / update</text><text x="1342" y="598" class="member">+ transaction()</text><text x="1342" y="622" class="member">+ updateRoot() / newKey()</text><text x="1342" y="650" class="small">Membungkus Realtime Database</text>
+
+    <rect x="1320" y="735" width="320" height="130" rx="7" class="box"/>
+    <rect x="1320" y="735" width="320" height="38" rx="7" class="head"/>
+    <text x="1386" y="760" class="heading">Realtime DB Rules</text>
+    <text x="1342" y="800" class="member">External Firebase policy</text><text x="1342" y="824" class="member">Validasi UID pasien / admin</text><text x="1342" y="850" class="small">Tidak memerlukan Functions</text>
+
+    <rect x="1320" y="900" width="320" height="95" rx="7" class="box"/>
+    <rect x="1320" y="900" width="320" height="38" rx="7" class="head"/>
+    <text x="1391" y="925" class="heading">Konfigurasi admin</text>
+    <text x="1342" y="965" class="member">UID yang sama di config dan Rules</text>
+
+    <rect x="60" y="1030" width="330" height="185" rx="7" class="box"/>
+    <rect x="60" y="1030" width="330" height="38" rx="7" class="head"/>
+    <text x="177" y="1055" class="heading">Doctor</text>
+    <text x="82" y="1094" class="member">- #id, #name, #specialty</text><text x="82" y="1118" class="member">- #active, #createdAt</text><text x="82" y="1150" class="member">+ getters</text><text x="82" y="1187" class="small">Data dokter terpisah dari poli</text>
+
+    <rect x="480" y="1030" width="360" height="185" rx="7" class="box"/>
+    <rect x="480" y="1030" width="360" height="38" rx="7" class="head"/>
+    <text x="575" y="1055" class="heading">DoctorSchedule</text>
+    <text x="502" y="1094" class="member">- #doctorId, #poliId, #dayOfWeek</text><text x="502" y="1118" class="member">- #startTime, #endTime, #active</text><text x="502" y="1150" class="member">+ getters / isTime()</text><text x="502" y="1187" class="small">Jadwal mingguan layanan</text>
+
+    <rect x="920" y="1030" width="380" height="185" rx="7" class="box"/>
+    <rect x="920" y="1030" width="380" height="38" rx="7" class="head"/>
+    <text x="1008" y="1055" class="heading">AdminDataService</text>
+    <text x="942" y="1094" class="member">+ subscribeDoctors / Schedules</text><text x="942" y="1118" class="member">+ subscribePatients()</text><text x="942" y="1150" class="member">+ saveDoctor / saveSchedule</text><text x="942" y="1187" class="small">CRUD master dan direktori pasien</text>
+  </g>
+
+  <path d="M620 300 L620 270 L780 270 L780 242" class="inherit"/>
+  <path d="M1050 300 L1050 270 L920 270 L920 242" class="inherit"/>
+  <path d="M660 430 L660 510" class="line"/>
+  <path d="M390 540 L420 540 L420 480 L900 480 L900 580 L920 580" class="line"/>
+  <path d="M390 650 L440 650 L440 740 L900 740 L900 820 L920 820" class="line"/>
+  <path d="M390 800 L410 800 L410 460 L890 460 L890 620 L920 620" class="line"/>
+  <path d="M390 850 L420 850 L420 980 L890 980 L890 880 L920 880" class="line"/>
+  <path d="M1250 605 L1320 605" class="line"/>
+  <path d="M1250 840 L1290 840 L1290 800 L1320 800" class="line"/>
+  <path d="M1250 820 L1300 820 L1300 650 L1320 650" class="line"/>
+  <path d="M920 900 L900 900 L900 735 L450 735 L450 690 L480 690" class="line"/>
+  <path d="M650 725 L650 790" class="line"/>
+  <path d="M660 940 L660 1030" class="line"/>
+  <path d="M390 1110 L480 1110" class="line"/>
+  <path d="M920 1140 L840 1140" class="line"/>
+  <path d="M920 1180 L870 1180 L870 1240 L420 1240 L420 1125 L390 1125" class="line"/>
+  <path d="M390 925 L420 925 L420 1005 L900 1005 L900 1100 L920 1100" class="line"/>
+  <text x="670" y="492" class="relation">punya antrean</text>
+  <text x="680" y="755" class="relation">antrean dilayani poli</text>
+  <text x="670" y="1005" class="relation">poli punya jadwal</text>
+</svg>

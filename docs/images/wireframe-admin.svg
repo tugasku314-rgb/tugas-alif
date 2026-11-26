@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Wireframe dashboard petugas SehatQ</title>
+  <desc id="desc">Rancangan dashboard admin dengan sidebar, statistik, antrean, filter, dan pengelolaan poli.</desc>
+  <defs>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#253d48}.title{font-size:27px;font-weight:700}.heading{font-size:19px;font-weight:700}.label{font-size:13px;font-weight:700}.small{font-size:11px;fill:#607780}.muted{font-size:10px;fill:#82949a}.box{fill:#fff;stroke:#9bb0b7;stroke-width:2}.dash{fill:#f4f8f9;stroke:#afc0c5;stroke-width:1.5;stroke-dasharray:7 5}.line{stroke:#dbe5e8;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1440" height="1000" fill="#f3f7f8"/>
+  <rect x="24" y="24" width="1392" height="952" rx="14" class="box"/>
+  <rect x="24" y="24" width="225" height="952" rx="14" fill="#f8fbfb" stroke="#9bb0b7" stroke-width="2"/>
+  <text x="50" y="73" class="heading" fill="#0d6b82">+ SehatQ</text>
+  <text x="50" y="95" class="muted">PORTAL PETUGAS</text>
+  <line x1="48" y1="119" x2="225" y2="119" class="line"/>
+  <text x="50" y="158" class="muted">MENU UTAMA</text>
+  <rect x="42" y="175" width="190" height="43" rx="7" fill="#eaf4f6" stroke="#c3d9de"/>
+  <text x="60" y="202" class="label" fill="#0d6b82">▦  Ringkasan</text>
+  <text x="60" y="250" class="label">◎  Antrean pasien</text>
+  <text x="60" y="298" class="label">⚙  Kelola poli</text>
+  <line x1="48" y1="880" x2="225" y2="880" class="line"/>
+  <circle cx="69" cy="917" r="18" fill="#e5f4ec" stroke="#a8d1b8"/>
+  <text x="59" y="922" class="small">PT</text>
+  <text x="96" y="914" class="label">Petugas</text>
+  <text x="96" y="932" class="muted">Administrator</text>
+  <text x="205" y="922" class="small">↪</text>
+
+  <text x="282" y="61" class="small">PUSKESMAS · PANEL PETUGAS</text>
+  <text x="282" y="96" class="title">Dashboard antrean</text>
+  <rect x="1192" y="47" width="194" height="34" rx="17" fill="#e7f6ed" stroke="#b7ddc6"/>
+  <circle cx="1212" cy="64" r="5" fill="#38a675"/>
+  <text x="1225" y="68" class="small">Tersambung real-time</text>
+
+  <rect x="282" y="121" width="265" height="125" rx="10" class="box"/>
+  <rect x="303" y="141" width="32" height="32" rx="9" fill="#e6f2f6"/>
+  <text x="312" y="163" class="label" fill="#0d6b82">◎</text>
+  <text x="350" y="161" class="small">Menunggu</text>
+  <text x="303" y="205" class="title">[#]</text>
+  <text x="303" y="229" class="muted">Antrean pada tanggal pilihan</text>
+  <rect x="562" y="121" width="265" height="125" rx="10" class="box"/>
+  <rect x="583" y="141" width="32" height="32" rx="9" fill="#fff2e4"/>
+  <text x="592" y="163" class="label">◉</text>
+  <text x="630" y="161" class="small">Sedang dipanggil</text>
+  <text x="583" y="205" class="title">[#]</text>
+  <text x="583" y="229" class="muted">Dalam pelayanan</text>
+  <rect x="842" y="121" width="265" height="125" rx="10" class="box"/>
+  <rect x="863" y="141" width="32" height="32" rx="9" fill="#e7f6ed"/>
+  <text x="872" y="163" class="label">✓</text>
+  <text x="910" y="161" class="small">Selesai</text>
+  <text x="863" y="205" class="title">[#]</text>
+  <text x="863" y="229" class="muted">Jumlah pada periode pilihan</text>
+  <rect x="1122" y="121" width="264" height="125" rx="10" class="box"/>
+  <rect x="1143" y="141" width="32" height="32" rx="9" fill="#f8ecea"/>
+  <text x="1152" y="163" class="label">↶</text>
+  <text x="1190" y="161" class="small">Dilewati / batal</text>
+  <text x="1143" y="205" class="title">[#]</text>
+  <text x="1143" y="229" class="muted">Jumlah pada periode pilihan</text>
+
+  <rect x="282" y="270" width="1104" height="440" rx="10" class="box"/>
+  <text x="306" y="307" class="small">PELAYANAN DAN RIWAYAT</text>
+  <text x="306" y="338" class="heading">Daftar antrean</text>
+  <rect x="1018" y="291" width="160" height="37" rx="6" class="dash"/>
+  <text x="1032" y="314" class="small">Tanggal layanan</text>
+  <rect x="1190" y="291" width="172" height="37" rx="6" class="dash"/>
+  <text x="1204" y="314" class="small">Semua poli  v</text>
+  <rect x="304" y="358" width="1060" height="42" rx="5" fill="#f2f7f8" stroke="#dce7e9"/>
+  <text x="319" y="384" class="small">NO. ANTREAN</text>
+  <text x="465" y="384" class="small">PASIEN</text>
+  <text x="675" y="384" class="small">POLI</text>
+  <text x="830" y="384" class="small">WAKTU DAFTAR</text>
+  <text x="985" y="384" class="small">STATUS</text>
+  <text x="1120" y="384" class="small">TINDAKAN</text>
+  <g class="small">
+    <line x1="304" y1="445" x2="1364" y2="445" class="line"/>
+    <line x1="304" y1="490" x2="1364" y2="490" class="line"/>
+    <line x1="304" y1="535" x2="1364" y2="535" class="line"/>
+    <line x1="304" y1="580" x2="1364" y2="580" class="line"/>
+    <line x1="304" y1="625" x2="1364" y2="625" class="line"/>
+  </g>
+  <g class="small">
+    <text x="319" y="430">[nomor]</text><text x="465" y="430">[nama pasien]</text><text x="675" y="430">[poli]</text><text x="830" y="430">[jam]</text>
+    <text x="319" y="475">[nomor]</text><text x="465" y="475">[nama pasien]</text><text x="675" y="475">[poli]</text><text x="830" y="475">[jam]</text>
+    <text x="319" y="520">[nomor]</text><text x="465" y="520">[nama pasien]</text><text x="675" y="520">[poli]</text><text x="830" y="520">[jam]</text>
+    <text x="319" y="565">[nomor]</text><text x="465" y="565">[nama pasien]</text><text x="675" y="565">[poli]</text><text x="830" y="565">[jam]</text>
+    <text x="319" y="610">[nomor]</text><text x="465" y="610">[nama pasien]</text><text x="675" y="610">[poli]</text><text x="830" y="610">[jam]</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="10" font-weight="700">
+    <rect x="977" y="412" width="74" height="24" rx="12" fill="#fff4d8"/><text x="991" y="428" fill="#87651d">Menunggu</text>
+    <rect x="977" y="457" width="74" height="24" rx="12" fill="#e4f4fb"/><text x="992" y="473" fill="#286984">Dipanggil</text>
+    <rect x="977" y="502" width="74" height="24" rx="12" fill="#e6f6ed"/><text x="998" y="518" fill="#27784d">Selesai</text>
+  </g>
+  <rect x="1110" y="411" width="104" height="26" rx="5" fill="#eaf5f7" stroke="#c4dce1"/>
+  <text x="1131" y="428" class="muted">Panggil</text>
+  <rect x="1224" y="411" width="88" height="26" rx="5" class="dash"/>
+  <text x="1245" y="428" class="muted">Lewati</text>
+
+  <rect x="282" y="733" width="1104" height="218" rx="10" class="box"/>
+  <text x="306" y="770" class="small">KONFIGURASI</text>
+  <text x="306" y="800" class="heading">Kelola data poli</text>
+  <rect x="306" y="818" width="385" height="38" rx="6" class="dash"/>
+  <text x="322" y="842" class="muted">Nama poli baru</text>
+  <rect x="702" y="818" width="120" height="38" rx="6" fill="#0d6b82"/>
+  <text x="722" y="842" font-size="11" font-weight="700" fill="#fff">Tambah poli</text>
+  <rect x="306" y="875" width="250" height="42" rx="7" class="dash"/>
+  <text x="325" y="901" class="small">[Poli] · Aktif  [Nonaktifkan]</text>
+  <rect x="570" y="875" width="250" height="42" rx="7" class="dash"/>
+  <text x="589" y="901" class="small">[Poli] · Nonaktif  [Aktifkan]</text>
+  <text x="282" y="969" class="muted">Tabel memuat antrean dari tanggal yang dipilih; data pasien hanya untuk admin berwenang.</text>
+</svg>

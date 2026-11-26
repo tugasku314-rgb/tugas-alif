@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Sequence diagram sinkronisasi status antrean</title>
+  <desc id="desc">Petugas mengubah status langsung dengan transaction Realtime Database lalu listener memperbarui dashboard dan pasien.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="#385a66"/></marker>
+    <marker id="reply" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#718890"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#243c46}.title{font-size:24px;font-weight:700}.part{font-size:13px;font-weight:700}.msg{font-size:12px;fill:#334e58}.life{stroke:#9fb3b9;stroke-width:1.5;stroke-dasharray:6 6}.call{stroke:#385a66;stroke-width:2;marker-end:url(#arrow)}.return{stroke:#718890;stroke-width:1.6;stroke-dasharray:7 5;marker-end:url(#reply)}.box{fill:#eaf3f5;stroke:#75939c;stroke-width:1.5}.note{fill:#fffbe8;stroke:#decf82;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1600" height="760" fill="#f6f9fa"/>
+  <text x="40" y="48" class="title">SEQUENCE — PEMANGGILAN DAN SINKRONISASI REAL-TIME</text>
+  <g>
+    <rect x="35" y="82" width="210" height="52" rx="7" class="box"/><text x="101" y="113" class="part">Petugas</text>
+    <rect x="295" y="82" width="210" height="52" rx="7" class="box"/><text x="352" y="113" class="part">AdminApp</text>
+    <rect x="555" y="82" width="230" height="52" rx="7" class="box"/><text x="590" y="113" class="part">QueueService</text>
+    <rect x="835" y="82" width="230" height="52" rx="7" class="box"/><text x="859" y="113" class="part">FirebaseService</text>
+    <rect x="1115" y="82" width="220" height="52" rx="7" class="box"/><text x="1160" y="113" class="part">Realtime DB</text>
+    <rect x="1385" y="82" width="180" height="52" rx="7" class="box"/><text x="1420" y="113" class="part">UI Pasien</text>
+    <line x1="140" y1="134" x2="140" y2="690" class="life"/><line x1="400" y1="134" x2="400" y2="690" class="life"/>
+    <line x1="670" y1="134" x2="670" y2="690" class="life"/><line x1="950" y1="134" x2="950" y2="690" class="life"/>
+    <line x1="1225" y1="134" x2="1225" y2="690" class="life"/><line x1="1475" y1="134" x2="1475" y2="690" class="life"/>
+  </g>
+  <g>
+    <line x1="140" y1="180" x2="400" y2="180" class="call"/><text x="182" y="169" class="msg">Klik Panggil</text>
+    <line x1="400" y1="224" x2="670" y2="224" class="call"/><text x="455" y="213" class="msg">changeStatus(queue, CALLED)</text>
+    <line x1="670" y1="268" x2="950" y2="268" class="call"/><text x="706" y="257" class="msg">transaction(queue, transition)</text>
+    <line x1="950" y1="312" x2="1225" y2="312" class="call"/><text x="964" y="301" class="msg">Security Rules verifikasi hak</text>
+    <line x1="1225" y1="356" x2="950" y2="356" class="return"/><text x="982" y="345" class="msg">Transisi serial di database</text>
+    <line x1="950" y1="400" x2="1225" y2="400" class="call"/><text x="962" y="389" class="msg">Update status riwayat + ringkasan</text>
+    <line x1="950" y1="444" x2="670" y2="444" class="return"/><text x="711" y="433" class="msg">Status CALLED berhasil</text>
+    <line x1="670" y1="488" x2="400" y2="488" class="return"/><text x="457" y="477" class="msg">Tampilkan status terbaru</text>
+    <line x1="1225" y1="532" x2="400" y2="532" class="return"/><text x="654" y="521" class="msg">onValue antrean memperbarui daftar admin</text>
+    <line x1="1225" y1="576" x2="1475" y2="576" class="return"/><text x="1237" y="565" class="msg">onValue riwayat + posisi</text>
+    <line x1="1475" y1="620" x2="1475" y2="664" class="call"/><text x="1248" y="648" class="msg">Render status Dipanggil tanpa refresh</text>
+  </g>
+  <rect x="100" y="696" width="1400" height="42" rx="7" class="note"/>
+  <text x="125" y="722" class="msg">Transaksi database menyerialkan perubahan; Security Rules membatasi aksi petugas dan pembatalan milik pasien.</text>
+</svg>

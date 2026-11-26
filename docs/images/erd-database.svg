@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1150" viewBox="0 0 1500 1150" role="img" aria-labelledby="title desc">
+  <title id="title">ERD Realtime Database sistem antrean</title>
+  <desc id="desc">Struktur users, poli, antrean, riwayat pasien, ringkasan publik tanpa identitas, dan counter.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#4a6873" stroke-width="1.5"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#263f49}.title{font-size:24px;font-weight:700}.entity{fill:#fff;stroke:#5a7a85;stroke-width:2}.head{fill:#e8f2f4;stroke:#5a7a85;stroke-width:2}.name{font-size:15px;font-weight:700}.field{font-size:12px}.key{font-size:11px;fill:#0d6b82;font-weight:700}.line{fill:none;stroke:#4a6873;stroke-width:1.7;marker-end:url(#arrow)}.relation{font-size:11px;fill:#506e78}
+    </style>
+  </defs>
+  <rect width="1500" height="920" fill="#f5f8f9"/>
+  <text x="40" y="48" class="title">ERD / STRUKTUR FIREBASE REALTIME DATABASE</text>
+  <text x="40" y="73" class="field">Path koleksi digambarkan sebagai entitas; indeks riwayat dan ringkasan dipisahkan demi privasi dan akses cepat.</text>
+
+  <g>
+    <rect x="70" y="140" width="340" height="245" rx="8" class="entity"/>
+    <rect x="70" y="140" width="340" height="45" rx="8" class="head"/>
+    <text x="200" y="169" class="name">users/{uid}</text>
+    <text x="94" y="220" class="key">PK uid</text><text x="94" y="249" class="field">name: string</text><text x="94" y="275" class="field">email: string</text><text x="94" y="301" class="field">phone: string</text><text x="94" y="327" class="field">role: patient</text><text x="94" y="353" class="field">createdAt: timestamp</text>
+
+    <rect x="565" y="140" width="340" height="245" rx="8" class="entity"/>
+    <rect x="565" y="140" width="340" height="45" rx="8" class="head"/>
+    <text x="700" y="169" class="name">poli/{poliId}</text>
+    <text x="589" y="220" class="key">PK poliId</text><text x="589" y="249" class="field">name: string</text><text x="589" y="275" class="field">code: string (unik)</text><text x="589" y="301" class="field">doctorId: string (FK)</text><text x="589" y="327" class="field">averageServiceMinutes: number</text><text x="589" y="353" class="field">active: boolean</text><text x="589" y="379" class="field">createdAt: timestamp</text>
+
+    <rect x="1050" y="140" width="380" height="340" rx="8" class="entity"/>
+    <rect x="1050" y="140" width="380" height="45" rx="8" class="head"/>
+    <text x="1192" y="169" class="name">antrean/{date}/{poliId}/{id}</text>
+    <text x="1074" y="220" class="key">PK date + poliId + queueId</text><text x="1074" y="249" class="field">uid: string (pemilik)</text><text x="1074" y="275" class="field">number, sequence: string/number</text><text x="1074" y="301" class="field">patientName, phone: string</text><text x="1074" y="327" class="field">poliName, doctorName: string</text><text x="1074" y="353" class="field">averageServiceMinutes: number</text><text x="1074" y="379" class="field">status: WAITING / CALLED / ...</text><text x="1074" y="405" class="field">date, createdAt, updatedAt</text><text x="1074" y="431" class="field">read all: admin UID only</text>
+
+    <rect x="70" y="540" width="340" height="270" rx="8" class="entity"/>
+    <rect x="70" y="540" width="340" height="45" rx="8" class="head"/>
+    <text x="153" y="569" class="name">riwayat_antrean/{uid}/{id}</text>
+    <text x="94" y="620" class="key">PK uid + queueId</text><text x="94" y="649" class="field">number, poliId, poliName</text><text x="94" y="675" class="field">doctorName: snapshot saat daftar</text><text x="94" y="701" class="field">averageServiceMinutes</text><text x="94" y="727" class="field">status, date, createdAt</text><text x="94" y="753" class="field">Pasien membaca miliknya</text><text x="94" y="779" class="field">Admin mengelola</text>
+
+    <rect x="565" y="540" width="340" height="230" rx="8" class="entity"/>
+    <rect x="565" y="540" width="340" height="45" rx="8" class="head"/>
+    <text x="650" y="569" class="name">ringkasan_antrean/{date}/{poliId}/{id}</text>
+    <text x="589" y="620" class="key">PK date + poliId + queueId</text><text x="589" y="649" class="field">sequence: number</text><text x="589" y="675" class="field">status: string</text><text x="589" y="701" class="field">Tanpa nama / telepon</text><text x="589" y="727" class="field">Untuk hitung posisi real-time</text>
+
+    <rect x="1050" y="540" width="380" height="230" rx="8" class="entity"/>
+    <rect x="1050" y="540" width="380" height="45" rx="8" class="head"/>
+    <text x="1177" y="569" class="name">pengaturan/nomor/{date}/{poliId}</text>
+    <text x="1074" y="620" class="key">PK date + poliId</text>    <text x="1074" y="649" class="field">counter: number</text><text x="1074" y="675" class="field">Transaction dari klien login</text><text x="1074" y="701" class="field">Rules: naik tepat satu angka</text><text x="1074" y="727" class="field">Risiko abuse tanpa backend server</text>
+
+    <rect x="70" y="900" width="340" height="160" rx="8" class="entity"/>
+    <rect x="70" y="900" width="340" height="45" rx="8" class="head"/>
+    <text x="192" y="929" class="name">dokter/{doctorId}</text>
+    <text x="94" y="980" class="key">PK doctorId</text><text x="94" y="1009" class="field">name, specialty: string</text><text x="94" y="1035" class="field">active: boolean</text>
+
+    <rect x="565" y="900" width="500" height="160" rx="8" class="entity"/>
+    <rect x="565" y="900" width="500" height="45" rx="8" class="head"/>
+    <text x="710" y="929" class="name">jadwal_dokter/{scheduleId}</text>
+    <text x="589" y="980" class="key">PK scheduleId</text><text x="589" y="1009" class="field">doctorId, poliId: string (FK)</text><text x="589" y="1035" class="field">dayOfWeek, startTime, endTime, active</text>
+  </g>
+  <path d="M410 260 L565 260" class="line"/><text x="449" y="248" class="relation">uid pemilik</text>
+  <path d="M905 270 L1050 270" class="line"/><text x="935" y="257" class="relation">satu poli, banyak antrean</text>
+  <path d="M240 385 L240 540" class="line"/><text x="251" y="473" class="relation">riwayat pasien</text>
+  <path d="M735 385 L735 540" class="line"/><text x="746" y="473" class="relation">ringkasan per poli</text>
+  <path d="M1240 450 L1240 540" class="line"/><text x="1252" y="505" class="relation">sequence + status</text>
+  <path d="M410 980 L565 980" class="line"/><text x="442" y="968" class="relation">dokter mengisi jadwal</text>
+  <path d="M905 270 L970 270 L970 900" class="line"/><text x="976" y="700" class="relation">poli memiliki jadwal</text>
+  <rect x="72" y="1080" width="1358" height="56" rx="8" fill="#fffbe8" stroke="#decf82"/>
+  <text x="98" y="1114" class="field">Kata sandi tidak disimpan di Realtime Database. Estimasi waktu tunggu bersifat indikatif dan dapat berubah.</text>
+</svg>

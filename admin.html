@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d6b82">
+  <title>Dashboard Petugas — SehatQ</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/admin-app.js"></script>
+</head>
+<body class="admin-body">
+  <section id="admin-login" class="admin-login-wrap">
+    <a class="brand login-brand" href="./"><span class="brand-mark">+</span><span>Sehat<span class="brand-accent">Q</span><small>PORTAL PETUGAS</small></span></a>
+    <div id="admin-notice" class="notice" role="status" hidden></div>
+    <form id="admin-login-form" class="panel form-panel">
+      <div class="panel-heading"><span class="panel-icon">▣</span><div><h1>Masuk petugas</h1><p>Dashboard pengelolaan antrean</p></div></div>
+      <label for="admin-email">Email</label><input id="admin-email" name="email" type="email" autocomplete="username" required maxlength="254">
+      <label for="admin-password">Kata sandi</label><div class="password-control"><input id="admin-password" name="password" type="password" autocomplete="current-password" required minlength="8"><button class="password-toggle" type="button" data-password-toggle="admin-password" aria-controls="admin-password" aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button></div>
+      <button class="button button-primary button-full" type="submit">Masuk ke dashboard</button>
+      <a class="back-link" href="./">← Kembali ke halaman pasien</a>
+    </form>
+  </section>
+  <div id="admin-dashboard" class="admin-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand sidebar-brand" href="./"><span class="brand-mark">+</span><span>Sehat<span class="brand-accent">Q</span><small>PORTAL PETUGAS</small></span></a>
+      <div class="sidebar-caption">MENU UTAMA</div>
+      <nav class="sidebar-navigation" aria-label="Navigasi dashboard">
+        <a class="side-link active" href="#dashboard" aria-current="page"><span>▦</span>Beranda Admin</a>
+        <a class="side-link" href="#admin-queues"><span>◎</span>Data antrean</a>
+        <a class="side-link" href="#poli-settings"><span>⚙</span>Data poli</a>
+        <a class="side-link" href="#doctor-settings"><span>✚</span>Data dokter</a>
+        <a class="side-link" href="#schedule-settings"><span>◷</span>Jadwal dokter</a>
+        <a class="side-link" href="#patient-settings"><span>♙</span>Data pasien</a>
+      </nav>
+      <div class="sidebar-bottom"><span class="staff-avatar">P</span><span><strong>Petugas</strong><small>Administrator</small></span><button id="admin-logout" class="logout-icon" aria-label="Keluar"><span aria-hidden="true">↪</span><span class="logout-label">Keluar</span></button></div>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar"><div><span class="eyebrow">PUSKESMAS · PANEL PETUGAS</span><h1 id="admin-page-title">Beranda Admin</h1></div><div class="live-badge"><i></i> Tersambung real-time</div></header>
+      <div id="dashboard-notice" class="notice" role="status" hidden></div>
+      <section id="dashboard" class="admin-page">
+        <p class="auto-call-note"><span>●</span> Panggilan otomatis bekerja selama dashboard petugas terbuka. Waktu dapat diatur per poli.</p>
+        <div id="home-queue-cards" class="home-queue-grid">
+          <p class="home-queue-empty">Memuat antrean hari ini…</p>
+        </div>
+      </section>
+      <section class="panel admin-table-panel admin-page" id="admin-queues" hidden>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon stat-blue">◎</span><span>Menunggu</span><strong id="stat-waiting">0</strong><small>Antrean · <span data-stat-period>Hari ini</span></small></article>
+          <article class="stat-card"><span class="stat-icon stat-orange">◉</span><span>Sedang dipanggil</span><strong id="stat-called">0</strong><small>Dalam pelayanan · <span data-stat-period>Hari ini</span></small></article>
+          <article class="stat-card"><span class="stat-icon stat-green">✓</span><span>Selesai</span><strong id="stat-done">0</strong><small>Jumlah · <span data-stat-period>Hari ini</span></small></article>
+          <article class="stat-card"><span class="stat-icon stat-red">↶</span><span>Dilewati / batal</span><strong id="stat-other">0</strong><small>Jumlah · <span data-stat-period>Hari ini</span></small></article>
+        </div>
+        <div class="admin-section-heading"><div><span class="eyebrow">PELAYANAN DAN RIWAYAT</span><h2>Data antrean</h2></div><div class="queue-export-controls"><div class="filter-wrap"><label class="sr-only" for="queue-date">Tanggal layanan</label><input id="queue-date" type="date" aria-label="Tanggal layanan"><label class="sr-only" for="queue-filter">Filter poli</label><select id="queue-filter"><option value="all">Semua poli</option></select></div><div class="queue-export-action"><div class="queue-export-buttons"><button id="download-queues-csv" class="button button-outline button-small" type="button" disabled>Unduh CSV</button><button id="download-queues-excel" class="button button-primary button-small" type="button" disabled>Unduh Tabel Excel</button></div><small id="queue-csv-hint">Pilih satu poli untuk mengunduh file terpisah.</small></div></div></div>
+        <div class="table-wrap"><table class="admin-table"><thead><tr><th>No. antrean</th><th>Pasien</th><th>Poli / dokter</th><th>Waktu daftar</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="admin-queue-rows"><tr><td colspan="6" class="empty-state">Memuat antrean…</td></tr></tbody></table></div>
+      </section>
+      <section class="panel poli-panel admin-page" id="poli-settings" hidden>
+        <div class="admin-section-heading"><div><span class="eyebrow">KONFIGURASI</span><h2>Data poli</h2></div></div>
+        <form id="poli-form" class="poli-form">
+          <div class="poli-form-fields">
+            <label class="sr-only" for="poli-name">Nama poli</label><input id="poli-name" name="name" type="text" maxlength="50" required placeholder="Nama poli">
+            <label class="sr-only" for="poli-doctor">Dokter poli</label><select id="poli-doctor" name="doctorId"><option value="">Pilih dokter (opsional)</option></select>
+            <label class="sr-only" for="poli-duration">Rata-rata menit per pasien</label><input id="poli-duration" name="averageServiceMinutes" type="number" min="1" max="120" step="1" value="15" required aria-label="Rata-rata waktu pelayanan per pasien dalam menit">
+            <span class="poli-duration-hint">menit / pasien</span>
+          </div>
+          <div class="poli-form-actions"><button id="poli-submit" class="button button-primary" type="submit">Tambah poli</button><button id="poli-cancel-edit" class="button button-outline" type="button" hidden>Batal</button></div>
+        </form>
+        <div id="poli-list" class="poli-list"></div>
+      </section>
+      <section class="panel poli-panel admin-page" id="doctor-settings" hidden>
+        <div class="admin-section-heading"><div><span class="eyebrow">TENAGA MEDIS</span><h2>Data dokter</h2></div></div>
+        <form id="doctor-form" class="management-form">
+          <label class="sr-only" for="doctor-name">Nama dokter</label><input id="doctor-name" name="name" type="text" maxlength="80" required placeholder="Nama dokter">
+          <label class="sr-only" for="doctor-specialty">Spesialisasi</label><input id="doctor-specialty" name="specialty" type="text" maxlength="80" required placeholder="Spesialisasi">
+          <div class="management-actions"><button id="doctor-submit" class="button button-primary" type="submit">Tambah dokter</button><button id="doctor-cancel-edit" class="button button-outline" type="button" hidden>Batal</button></div>
+        </form>
+        <div id="doctor-list" class="poli-list"></div>
+      </section>
+      <section class="panel poli-panel admin-page" id="schedule-settings" hidden>
+        <div class="admin-section-heading"><div><span class="eyebrow">JAM PELAYANAN</span><h2>Jadwal dokter</h2></div></div>
+        <form id="schedule-form" class="management-form schedule-form">
+          <label class="sr-only" for="schedule-doctor">Dokter</label><select id="schedule-doctor" name="doctorId" required><option value="">Pilih dokter</option></select>
+          <label class="sr-only" for="schedule-poli">Poli</label><select id="schedule-poli" name="poliId" required><option value="">Pilih poli</option></select>
+          <label class="sr-only" for="schedule-day">Hari</label><select id="schedule-day" name="dayOfWeek" required>
+            <option value="1">Senin</option><option value="2">Selasa</option><option value="3">Rabu</option><option value="4">Kamis</option><option value="5">Jumat</option><option value="6">Sabtu</option><option value="0">Minggu</option>
+          </select>
+          <label class="sr-only" for="schedule-start">Mulai</label><input id="schedule-start" name="startTime" type="time" required>
+          <label class="sr-only" for="schedule-end">Selesai</label><input id="schedule-end" name="endTime" type="time" required>
+          <div class="management-actions"><button id="schedule-submit" class="button button-primary" type="submit">Tambah jadwal</button><button id="schedule-cancel-edit" class="button button-outline" type="button" hidden>Batal</button></div>
+        </form>
+        <div class="table-wrap">
+          <table class="admin-table"><thead><tr><th>Dokter</th><th>Poli</th><th>Hari</th><th>Jam</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="schedule-rows"><tr><td colspan="6" class="empty-state">Memuat jadwal…</td></tr></tbody></table>
+        </div>
+      </section>
+      <section class="panel admin-table-panel admin-page" id="patient-settings" hidden>
+        <div class="admin-section-heading patient-heading"><div><span class="eyebrow">AKUN TERDAFTAR</span><h2>Data pasien</h2></div><label class="sr-only" for="patient-search">Cari pasien</label><input id="patient-search" class="management-search" type="search" placeholder="Cari nama, email, atau telepon"></div>
+        <div class="table-wrap">
+          <table class="admin-table"><thead><tr><th>Nama pasien</th><th>Email</th><th>Nomor telepon</th></tr></thead><tbody id="patient-rows"><tr><td colspan="3" class="empty-state">Memuat data pasien…</td></tr></tbody></table>
+        </div>
+      </section>
+      <footer class="admin-footer"><a href="./">SehatQ</a><span>Data pasien hanya tersedia untuk petugas berwenang.</span></footer>
+    </main>
+  </div>
+</body>
+</html>

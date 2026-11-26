@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d6b82">
+  <title>SehatQ — Antrean Puskesmas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/patient-app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark">+</span><span>Sehat<span class="brand-accent">Q</span><small>ANTREAN PUSKESMAS</small></span></a>
+    <nav><a class="button button-outline button-small" href="admin.html">Masuk petugas</a></nav>
+  </header>
+
+  <main>
+    <section class="hero" id="landing-hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="live-dot"></span> LAYANAN ANTREAN DIGITAL</span>
+        <h1>Urus antrean,<br><span class="text-accent">tanpa menunggu.</span></h1>
+        <p>Daftar dari rumah, pilih poli tujuan, dan pantau giliran Anda secara langsung.</p>
+        <a class="button button-primary" href="#akun">Mulai daftar <span aria-hidden="true">→</span></a>
+        <div class="hero-note"><span class="check-icon">✓</span> Aman · Praktis · Tanpa biaya</div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-circle"></div><div class="art-card art-card-main"><span class="art-icon">✚</span><span class="art-label">PUSKESMAS</span><strong>Sehat dimulai<br>dari langkah kecil.</strong><span class="art-status"><i></i> Layanan tersedia</span></div>
+        <div class="art-card art-card-number"><small>SINKRONISASI</small><strong>Real-time</strong><span>Status selalu terbaru</span></div>
+        <div class="art-leaf">✳</div>
+      </div>
+    </section>
+
+    <section class="features" id="landing-features">
+      <article><span class="feature-icon icon-blue">01</span><h3>Daftar dengan mudah</h3><p>Buat akun, tentukan poli, lalu ambil nomor antrean dari ponsel Anda.</p></article>
+      <article><span class="feature-icon icon-green">02</span><h3>Pantau giliran langsung</h3><p>Nomor dan status antrean diperbarui otomatis tanpa perlu memuat ulang.</p></article>
+      <article><span class="feature-icon icon-orange">03</span><h3>Datang lebih tepat waktu</h3><p>Ketahui antrean yang sedang dilayani sebelum menuju puskesmas.</p></article>
+    </section>
+
+    <section class="account-section" id="akun">
+      <div class="section-heading"><span class="eyebrow">MULAI DI SINI</span><h2>Selamat datang</h2><p>Masuk atau buat akun pasien untuk mendaftar antrean.</p></div>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div class="account-grid">
+        <form id="login-form" class="panel form-panel">
+          <div class="panel-heading"><span class="panel-icon">↗</span><div><h3>Masuk pasien</h3><p>Lanjutkan ke antrean Anda</p></div></div>
+          <label for="login-email">Email</label><input id="login-email" name="email" type="email" autocomplete="email" required maxlength="254">
+          <label for="login-password">Kata sandi</label><div class="password-control"><input id="login-password" name="password" type="password" autocomplete="current-password" required minlength="8"><button class="password-toggle" type="button" data-password-toggle="login-password" aria-controls="login-password" aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button></div>
+          <button class="button button-primary button-full" type="submit">Masuk</button>
+        </form>
+        <form id="register-form" class="panel form-panel">
+          <div class="panel-heading"><span class="panel-icon panel-icon-green">＋</span><div><h3>Buat akun pasien</h3><p>Hanya perlu beberapa informasi</p></div></div>
+          <label for="register-name">Nama lengkap</label><input id="register-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80">
+          <label for="register-phone">Nomor telepon</label><input id="register-phone" name="phone" type="tel" autocomplete="tel" required minlength="8" maxlength="20">
+          <label for="register-email">Email</label><input id="register-email" name="email" type="email" autocomplete="email" required maxlength="254">
+          <label for="register-password">Kata sandi <span class="label-hint">minimal 8 karakter</span></label><div class="password-control"><input id="register-password" name="password" type="password" autocomplete="new-password" required minlength="8"><button class="password-toggle" type="button" data-password-toggle="register-password" aria-controls="register-password" aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button></div>
+          <button class="button button-secondary button-full" type="submit">Daftar sebagai pasien</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="patient-app" class="patient-app" hidden>
+      <div class="app-heading"><div><span class="eyebrow">RUANG PASIEN</span><h2>Halo, <span id="patient-name">Pasien</span></h2><p>Pantau antrean dan riwayat pendaftaran Anda.</p></div><button id="patient-logout" class="button button-outline">Keluar</button></div>
+      <div class="patient-grid">
+        <form id="queue-form" class="panel form-panel">
+          <div class="panel-heading"><span class="panel-icon panel-icon-green">＋</span><div><h3>Ambil antrean</h3><p>Pilih poli untuk kunjungan hari ini</p></div></div>
+          <label for="queue-poli">Poli tujuan</label><select id="queue-poli" name="poliId" required><option value="">Memuat daftar poli…</option></select>
+          <button class="button button-primary button-full" type="submit">Ambil nomor antrean</button>
+          <p class="form-footnote">Nomor antrean dibedakan menurut poli dan tanggal pelayanan. Informasi keluhan tidak dikumpulkan.</p>
+        </form>
+        <section class="panel queue-panel"><div class="panel-heading"><span class="panel-icon">◎</span><div><h3>Antrean saya</h3><p>Perubahan status tersinkron otomatis</p></div></div><div id="my-queues" class="queue-list"><p class="empty-state">Masuk untuk melihat antrean Anda.</p></div></section>
+      </div>
+      <section class="panel history-panel"><div class="panel-heading"><span class="panel-icon">◷</span><div><h3>Riwayat antrean</h3><p>Pendaftaran terbaru Anda</p></div></div><div class="table-wrap"><table><thead><tr><th>Nomor</th><th>Poli</th><th>Dokter</th><th>Tanggal</th><th>Status</th></tr></thead><tbody id="history-rows"><tr><td colspan="5" class="empty-state">Belum ada riwayat.</td></tr></tbody></table></div></section>
+    </section>
+  </main>
+  <footer><span class="brand-mini">✚ SehatQ</span><span>Sistem Informasi Antrean Pasien · Puskesmas</span></footer>
+</body>
+</html>

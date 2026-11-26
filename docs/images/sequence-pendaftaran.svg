@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sequence diagram pendaftaran antrean</title>
+  <desc id="desc">Urutan autentikasi pasien, transaksi klien untuk nomor antrean, penyimpanan, dan listener real-time.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="#385a66"/></marker>
+    <marker id="reply" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#718890"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#243c46}.title{font-size:24px;font-weight:700}.part{font-size:14px;font-weight:700}.msg{font-size:12px;fill:#334e58}.life{stroke:#9fb3b9;stroke-width:1.5;stroke-dasharray:6 6}.call{stroke:#385a66;stroke-width:2;marker-end:url(#arrow)}.return{stroke:#718890;stroke-width:1.6;stroke-dasharray:7 5;marker-end:url(#reply)}.box{fill:#eaf3f5;stroke:#75939c;stroke-width:1.5}.note{fill:#fffbe8;stroke:#decf82;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f6f9fa"/>
+  <text x="40" y="48" class="title">SEQUENCE — PASIEN MENDAFTAR ANTREAN</text>
+  <g>
+    <rect x="35" y="82" width="220" height="54" rx="7" class="box"/><text x="103" y="115" class="part">Pasien</text>
+    <rect x="330" y="82" width="220" height="54" rx="7" class="box"/><text x="378" y="115" class="part">PatientApp</text>
+    <rect x="625" y="82" width="220" height="54" rx="7" class="box"/><text x="673" y="115" class="part">AuthService</text>
+    <rect x="920" y="82" width="220" height="54" rx="7" class="box"/><text x="950" y="115" class="part">QueueService</text>
+    <rect x="1215" y="82" width="220" height="54" rx="7" class="box"/><text x="1257" y="115" class="part">FirebaseService</text>
+    <rect x="1460" y="82" width="120" height="54" rx="7" class="box"/><text x="1483" y="105" class="part">Realtime</text><text x="1483" y="123" class="part">Database</text>
+    <line x1="145" y1="136" x2="145" y2="845" class="life"/><line x1="440" y1="136" x2="440" y2="845" class="life"/>
+    <line x1="735" y1="136" x2="735" y2="845" class="life"/><line x1="1030" y1="136" x2="1030" y2="845" class="life"/>
+    <line x1="1325" y1="136" x2="1325" y2="845" class="life"/><line x1="1520" y1="136" x2="1520" y2="845" class="life"/>
+  </g>
+  <g>
+    <line x1="145" y1="180" x2="440" y2="180" class="call"/><text x="205" y="170" class="msg">Isi data dan submit registrasi</text>
+    <line x1="440" y1="222" x2="735" y2="222" class="call"/><text x="505" y="212" class="msg">register(data)</text>
+    <line x1="735" y1="264" x2="440" y2="264" class="return"/><text x="515" y="254" class="msg">Firebase Auth membuat akun + UID</text>
+    <line x1="440" y1="306" x2="1520" y2="306" class="call"/><text x="714" y="296" class="msg">Simpan profil pasien (tanpa kata sandi)</text>
+    <line x1="145" y1="363" x2="440" y2="363" class="call"/><text x="207" y="353" class="msg">Pilih poli dan ambil antrean</text>
+    <line x1="440" y1="405" x2="1030" y2="405" class="call"/><text x="628" y="395" class="msg">register(poliId)</text>
+    <line x1="1030" y1="447" x2="1325" y2="447" class="call"/><text x="1083" y="437" class="msg">register(poliId)</text>
+    <line x1="1325" y1="489" x2="1520" y2="489" class="call"/><text x="1328" y="479" class="msg">Baca profil + poli</text>
+    <line x1="1520" y1="531" x2="1325" y2="531" class="return"/><text x="1360" y="521" class="msg">Profil dan poli aktif</text>
+    <line x1="1325" y1="573" x2="1520" y2="573" class="call"/><text x="1328" y="563" class="msg">runTransaction(counter)</text>
+    <line x1="1520" y1="615" x2="1325" y2="615" class="return"/><text x="1360" y="605" class="msg">Urutan unik untuk transaksi normal</text>
+    <line x1="1325" y1="657" x2="1520" y2="657" class="call"/><text x="1328" y="647" class="msg">Multi-location update antrean/riwayat/ringkasan</text>
+    <line x1="1325" y1="699" x2="1030" y2="699" class="return"/><text x="1086" y="689" class="msg">Nomor dan tanggal layanan</text>
+    <line x1="1030" y1="741" x2="440" y2="741" class="return"/><text x="614" y="731" class="msg">Tampilkan tiket; listener onValue aktif</text>
+    <line x1="1520" y1="793" x2="440" y2="793" class="return"/><text x="725" y="783" class="msg">Event antrean/riwayat/ringkasan real-time</text>
+  </g>
+  <rect x="85" y="827" width="1430" height="42" rx="7" class="note"/>
+  <text x="111" y="853" class="msg">Rules membatasi tiap increment; tanpa backend tepercaya, perlindungan anti-penyalahgunaan pada paket gratis tetap terbatas.</text>
+</svg>

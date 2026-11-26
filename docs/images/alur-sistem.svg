@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" role="img" aria-labelledby="title desc">
+  <title id="title">Flowchart sistem antrean pasien</title>
+  <desc id="desc">Alur masuk pasien/admin, booking, panggilan, dan sinkronisasi real-time.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10" fill="#466672"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#263f49}.title{font-size:24px;font-weight:700}.label{font-size:13px;font-weight:700}.small{font-size:11px;fill:#607780}.node{fill:#fff;stroke:#7897a1;stroke-width:2}.decision{fill:#fffbe8;stroke:#c6ae59;stroke-width:2}.process{fill:#eaf4f6;stroke:#85a9b3;stroke-width:2}.data{fill:#eaf6ef;stroke:#8dbda0;stroke-width:2}.line{fill:none;stroke:#466672;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1400" height="980" fill="#f5f8f9"/>
+  <text x="42" y="48" class="title">FLOWCHART SISTEM ANTREAN PASIEN</text>
+  <rect x="530" y="82" width="340" height="58" rx="28" class="node"/><text x="646" y="117" class="label">Buka aplikasi</text>
+  <path d="M700 140 L700 185" class="line"/>
+  <polygon points="700,185 805,235 700,285 595,235" class="decision"/><text x="651" y="231" class="label">Sudah login?</text><text x="671" y="251" class="small">Auth state</text>
+  <path d="M595 235 L320 235 L320 300" class="line"/><text x="420" y="223" class="small">Tidak</text>
+  <rect x="150" y="300" width="340" height="70" rx="10" class="process"/><text x="224" y="330" class="label">Masuk / registrasi pasien</text><text x="217" y="351" class="small">Firebase Authentication</text>
+  <path d="M320 370 L320 416 L600 416" class="line"/><text x="337" y="405" class="small">Sesi berhasil</text>
+  <path d="M805 235 L1080 235 L1080 300" class="line"/><text x="905" y="223" class="small">Ya</text>
+  <polygon points="1080,300 1185,350 1080,400 975,350" class="decision"/><text x="1026" y="347" class="label">UID admin?</text><text x="1045" y="368" class="small">Dikonfigurasi tetap</text>
+  <path d="M975 350 L760 350 L760 416" class="line"/><text x="842" y="338" class="small">Tidak</text>
+  <path d="M1080 400 L1080 445" class="line"/><text x="1092" y="429" class="small">Ya</text>
+  <rect x="555" y="416" width="410" height="72" rx="10" class="process"/><text x="675" y="448" class="label">Dashboard pasien</text><text x="600" y="470" class="small">Pilih poli → minta nomor antrean</text>
+  <rect x="910" y="445" width="340" height="72" rx="10" class="process"/><text x="1009" y="477" class="label">Dashboard petugas</text><text x="965" y="499" class="small">Pantau antrean dan kelola poli</text>
+  <path d="M760 488 L760 552" class="line"/>
+  <rect x="555" y="552" width="410" height="78" rx="10" class="data"/><text x="645" y="585" class="label">Realtime Database transaction</text><text x="608" y="608" class="small">Counter tanggal + poli dengan Security Rules</text>
+  <path d="M760 630 L760 685" class="line"/>
+  <rect x="555" y="685" width="410" height="78" rx="10" class="data"/><text x="680" y="718" class="label">Realtime Database</text><text x="608" y="741" class="small">Antrean + riwayat + ringkasan tanpa identitas</text>
+  <path d="M965 723 L1085 723 L1085 517" class="line"/>
+  <text x="1095" y="629" class="small">Petugas panggil / selesai / lewati</text>
+  <path d="M555 724 L390 724 L390 565 L555 565" class="line"/>
+  <text x="252" y="644" class="small">onValue listener memperbarui</text>
+  <text x="252" y="662" class="small">tiket pasien tanpa refresh</text>
+  <rect x="390" y="820" width="620" height="60" rx="28" class="node"/><text x="530" y="856" class="label">Perubahan status terlihat oleh pengguna berwenang</text>
+  <path d="M760 763 L760 820" class="line"/>
+</svg>

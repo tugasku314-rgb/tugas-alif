@@ -1,0 +1,10 @@
+{
+  "name": "sehatq-functions",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "20" },
+  "dependencies": {
+    "firebase-admin": "^13.0.2",
+    "firebase-functions": "^6.3.2"
+  }
+}
